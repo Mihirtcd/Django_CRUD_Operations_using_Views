@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students List</title>
+</head>
+<body>
+    <h1>Students List</h1>
+    <a href="{% url 'student_create' %}">Add New Student</a>
+    <table cellpadding="5">
+        <thead>
+            <tr>
+                <th>stu_id</th>
+                <th>student_name</th>
+                <th>age</th>
+                <th>contact</th>
+                <th>address</th>
+                <th>dob</th>
+                <th>joining_date_time</th>
+                <th>profile_picture</th>
+                <th>enrolled_subject</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.stu_id }}</td>
+                <td>{{ student.student_name }}</td>
+                <td>{{ student.age }}</td>
+                <td>{{ student.contact }}</td>
+                <td>{{ student.address }}</td>
+                <td>{{ student.dob }}</td>
+                <td>{{ student.joining_date_time}}</td>
+                <td>
+                    {% if student.profile_picture %}
+                    <img src="{{ student.profile_picture.url }}" alt="Profile Picture">
+                    {% else %}
+                    No image
+                    {% endif %}
+                </td>
+                <td>
+                    {% for subject in student.enrolled_subject.all %}
+                    {{ subject.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                    No subjects enrolled
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{% url 'student_update' student.pk %}">Edit</a>
+                    <a href="{% url 'student_delete' student.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No students available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

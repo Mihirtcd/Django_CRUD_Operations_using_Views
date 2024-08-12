@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Form</title>
+</head>
+<body>
+    <style>
+        select[multiple] {
+            width: 100%;  /* Adjust width as necessary */
+            height: 150px; /* Adjust height to show more options */
+        }
+        </style>
+    <h1>{% if pk %}Edit{% else %}Add{% endif %} Teacher information</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% if pk %}Update{% else %}Create{{pk}}{% endif %}</button>
+    </form>
+    <a href="{% url 'teacher_list' %}">Back to Teachers List</a>
+</body>
+</html>

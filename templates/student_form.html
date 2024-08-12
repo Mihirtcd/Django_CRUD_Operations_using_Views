@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Form</title>
+</head>
+<body>
+    <h1>{% if pk %}Edit{% else %}Add{% endif %} Student information</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% if pk %}Update{% else %}Create{{pk}}{% endif %}</button>
+    </form>
+    <a href="{% url 'student_list' %}">Back to Students List</a>
+</body>
+</html>
